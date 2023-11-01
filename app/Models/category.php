@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class category extends Model
+class Category extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'description',
+        'image',
+        'logo',
 
-    public function trips()
+    ];
+    public function service()
     {
-        return $this->hasMany(trips::class);
+        return $this->hasMany(Service::class);
     }
-    
 }

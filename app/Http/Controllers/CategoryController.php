@@ -2,98 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category;
-use App\Models\trips;
-
 use Illuminate\Http\Request;
-
+use App\Models\Category;
+use App\Models\Service;
+use App\Models\User;
+use App\Models\UserService;
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-        $data = category::all();
-        return view('admin.Categories', compact('data'));
+        $categories = Category::all();
+
+        return view('pages.service', compact('categories'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        $cat = new category();
-        $cat->category_name    = $request->input('cat_name');
-        $img = $request->file('cat_img');
-        $imgname = $img->getClientOriginalName();
-        $img->move(public_path('assetsAdmin/images'), $imgname);
-        $cat->category_picture = $imgname;
-        $cat->save();
-        return redirect('/AdminCategories');
-    }
 
-  
-    // public function categ()
-    // {
-    //     $cat = category::all();
-
-       
-    //     return view('home' , ['cat' => $cat]);
-    // }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
+    public function show(Request $request,$id)
     {
 
-        $id = $request->input('id');
-        $cat = category::find($id);
-        $cat->category_name = $request->input('cat_name');
-        if ($request->file('cat_img')) {
-            $img = $request->file('cat_img');
-            $imgname = $img->getClientOriginalName();
-            $img->move(public_path('assetsAdmin/images'), $imgname);
-            $cat->category_picture = $imgname;
+        if($request->filled('search')){
+
+            $categories = Category::find($id);
+            $services = Service::search($request->search)->get()->where('category_id', '=', $categories->id);
+            $workers = UserService::all();
+            $users = User::all();
+        }else{
+
+            $categories = Category::find($id);
+            $services = Service::where('category_id', '=', $categories->id)->paginate(4);
+            $workers = UserService::all();
+            $users = User::all();
         }
 
-        $cat->update();
-        return redirect('/AdminCategories');
+
+        return view('pages/servicesInsideCat', [
+            'category' => $categories,
+            'services' => $services,
+            'workers'  => $workers,
+
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, category $category)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
-        $cat = category::find($id);
-        // Check if there are related trips
-        $relatedTrips = trips::where('category_id', $cat->id)->count();
 
-        if ($relatedTrips > 0) {
-            // There are related trips, so display an error message
-            return redirect()->back()->with('error1', 'Cannot delete this category until all related trips are deleted.');
-        }
-        $cat->delete();
-        return redirect('/AdminCategories');
-    }
+
+
+
+
+    public function workersName(Service $service) {
+        $service=Service::with('users')->find($service->id);
+
+        $users=User::all();
+
+        return view('pages/servicesInsideCat',compact('service','users',)); }
+
+
+
+
 }
