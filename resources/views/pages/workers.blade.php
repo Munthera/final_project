@@ -18,21 +18,7 @@
 
 <br><br>
 <div class="container-xxl ">
-    <form method="GET">
-        <div class="input-group mb-3 wow fadeInUp"  data-wow-delay="0.4s">
-          <input
-            type="text"
-            name="search"
-            value="{{ request()->get('search') }}"
-            class="form-control input-ress"
-            placeholder="Search..."
-            aria-label="Search"
-            aria-describedby="button-addon2">
-
-          <button class="btn btn-primary serachBtn2" type="submit" id="button-addon2"><i class="bi bi-search"></i></button>
-        </div>
-    </form>
-    <hr>
+    
     <div class="container pt-5 ">
         <div class="row g-4">
             @foreach ($workers as $worker)
