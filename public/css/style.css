@@ -308,7 +308,7 @@ h6,
     height: 80%;
     top: 10%;
     left: 20%;
-    border: 5px solid var(--primary);
+
     z-index: -1;
 }
 
