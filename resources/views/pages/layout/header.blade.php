@@ -85,7 +85,7 @@
 
 
 
-            <a style="margin-right: 30px" class="position-relative " href="{{ route('cart.index') }}">
+            <!-- <a style="margin-right: 30px" class="position-relative " href="{{ route('cart.index') }}">
                 <span
 
                     class="
@@ -112,7 +112,7 @@
                 {{-- <i style="font-size: 22px" class="bi bi-cart3"></i> --}}
 
 
-            </a>
+            </a> -->
             @if (Auth::check())
 
                 <div class="dropdown">

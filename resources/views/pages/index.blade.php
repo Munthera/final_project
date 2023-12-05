@@ -111,8 +111,8 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                     <div class="about-img">
-                        <img class="img-fluid" src="img/Man.JPG" alt="">
-                        <img class="img-fluid" src="img/team.jpg" alt="">
+                        <img class="img-fluid" src="img/hh1.png" alt="">
+                        <img class="img-fluid" src="img/hh.png" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
